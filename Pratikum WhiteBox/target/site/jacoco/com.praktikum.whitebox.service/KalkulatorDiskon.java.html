@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KalkulatorDiskon.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">whitebox-testing-lab</a> &gt; <a href="index.source.html" class="el_package">com.praktikum.whitebox.service</a> &gt; <span class="el_source">KalkulatorDiskon.java</span></div><h1>KalkulatorDiskon.java</h1><pre class="source lang-java linenums">package com.praktikum.whitebox.service;
+
+<span class="fc" id="L3">public class KalkulatorDiskon {</span>
+
+    public double hitungDiskon(double harga, int kuantitas, String tipePelanggan) {
+<span class="fc bfc" id="L6" title="All 4 branches covered.">        if (harga &lt;= 0 || kuantitas &lt;= 0) {</span>
+<span class="fc" id="L7">            throw new IllegalArgumentException(&quot;Harga dan kuantitas harus positif&quot;);</span>
+        }
+
+<span class="fc" id="L10">        double totalHarga = harga * kuantitas;</span>
+<span class="fc" id="L11">        double diskonKuantitas = hitungDiskonKuantitas(kuantitas);</span>
+<span class="fc" id="L12">        double diskonPelanggan = hitungDiskonPelanggan(tipePelanggan);</span>
+
+<span class="fc" id="L14">        double totalPersentaseDiskon = diskonKuantitas + diskonPelanggan;</span>
+
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (totalPersentaseDiskon &gt; 0.30) {</span>
+<span class="fc" id="L17">            totalPersentaseDiskon = 0.30;</span>
+        }
+
+<span class="fc" id="L20">        return totalHarga * totalPersentaseDiskon;</span>
+    }
+
+    private double hitungDiskonKuantitas(int kuantitas) {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (kuantitas &gt;= 100) {</span>
+<span class="fc" id="L25">            return 0.20;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        } else if (kuantitas &gt;= 50) {</span>
+<span class="fc" id="L27">            return 0.15;</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        } else if (kuantitas &gt;= 10) {</span>
+<span class="fc" id="L29">            return 0.10;</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        } else if (kuantitas &gt;= 5) {</span>
+<span class="fc" id="L31">            return 0.05;</span>
+        } else {
+<span class="fc" id="L33">            return 0.00;</span>
+        }
+    }
+
+    private double hitungDiskonPelanggan(String tipePelanggan) {
+<span class="pc bpc" id="L38" title="1 of 4 branches missed.">        switch (tipePelanggan.toUpperCase()) {</span>
+            case &quot;PREMIUM&quot;:
+<span class="fc" id="L40">                return 0.10;</span>
+            case &quot;REGULER&quot;:
+<span class="fc" id="L42">                return 0.05;</span>
+            case &quot;BARU&quot;:
+<span class="fc" id="L44">                return 0.02;</span>
+            default:
+<span class="nc" id="L46">                return 0.00;</span>
+        }
+    }
+
+    public double hitungHargaSetelahDiskon(double harga, int kuantitas, String tipePelanggan) {
+<span class="fc" id="L51">        double totalHarga = harga * kuantitas;</span>
+<span class="fc" id="L52">        double diskon = hitungDiskon(harga, kuantitas, tipePelanggan);</span>
+<span class="fc" id="L53">        return totalHarga - diskon;</span>
+    }
+
+    public String getKategoriDiskon(double persentaseDiskon) {
+<span class="fc" id="L57">        final double TOLERANCE = 0.0001;</span>
+<span class="fc" id="L58">        double rounded = Math.round(persentaseDiskon * 1000.0) / 1000.0;</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (rounded &gt;= 0.20 - TOLERANCE) {</span>
+<span class="fc" id="L61">            return &quot;DISKON_BESAR&quot;;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        } else if (rounded &gt;= 0.10 - TOLERANCE) {</span>
+<span class="fc" id="L63">            return &quot;DISKON_SEDANG&quot;;</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        } else if (rounded &gt;= 0.05 - TOLERANCE) {</span>
+<span class="fc" id="L65">            return &quot;DISKON_RINGAN&quot;;</span>
+        } else {
+<span class="fc" id="L67">            return &quot;TANPA_DISKON&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
