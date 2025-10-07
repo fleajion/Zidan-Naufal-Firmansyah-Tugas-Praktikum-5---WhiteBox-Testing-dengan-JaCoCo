@@ -1,0 +1,5 @@
+# Created at 2025-10-06T21:17:26.923
+Boot Manifest-JAR contains absolute paths in classpath 'F:\zidanyb-pratikum-pengujian-perangkat-lunak\ZidanNF-Pratikum-Whitebox\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidationUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zidannf-pratikum-ppl-white-box-testing-jacoco-modul-7</a> &gt; <a href="index.source.html" class="el_package">com.praktikum.whitebox.util</a> &gt; <span class="el_source">ValidationUtils.java</span></div><h1>ValidationUtils.java</h1><pre class="source lang-java linenums">package com.praktikum.whitebox.util;
+
+import com.praktikum.whitebox.model.Kategori;
+import com.praktikum.whitebox.model.Produk;
+<span class="nc" id="L5">public class ValidationUtils {</span>
+    public static boolean isValidKodeProduk(String kode) {
+<span class="fc bfc" id="L7" title="All 4 branches covered.">        if (kode == null || kode.trim().isEmpty()) {</span>
+<span class="fc" id="L8">            return false;</span>
+        }
+<span class="fc" id="L10">        String kodeBersih = kode.trim();</span>
+<span class="fc" id="L11">        return kodeBersih.matches(&quot;^[A-Za-z0-9]{3,10}$&quot;);</span>
+    }
+    // Validasi nama (3-100 karakter, boleh huruf, angka, spasi)
+    public static boolean isValidNama(String nama) {
+<span class="fc bfc" id="L15" title="All 4 branches covered.">        if (nama == null || nama.trim().isEmpty()) {</span>
+<span class="fc" id="L16">            return false;</span>
+        }
+<span class="fc" id="L18">        String namaBersih = nama.trim();</span>
+<span class="fc bfc" id="L19" title="All 4 branches covered.">        return namaBersih.length() &gt;= 3 &amp;&amp; namaBersih.length() &lt;= 100;</span>
+    }
+    // Validasi harga (harus positif)
+    public static boolean isValidHarga(double harga) {
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        return harga &gt; 0;</span>
+    }
+    // Validasi stok (non-negatif)
+    public static boolean isValidStok(int stok) {
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        return stok &gt;= 0;</span>
+    }
+    // Validasi stok minimum (non-negatif)
+    public static boolean isValidStokMinimum(int stokMinimum) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        return stokMinimum &gt;= 0;</span>
+    }
+    // Validasi produk lengkap
+    public static boolean isValidProduk(Produk produk) {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (produk == null) {</span>
+<span class="fc" id="L36">            return false;</span>
+        }
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        return isValidKodeProduk(produk.getKode()) &amp;&amp;</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                isValidNama(produk.getNama()) &amp;&amp;</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                isValidNama(produk.getKategori()) &amp;&amp;</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                isValidHarga(produk.getHarga()) &amp;&amp;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">                isValidStok(produk.getStok()) &amp;&amp;</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                isValidStokMinimum(produk.getStokMinimum()) &amp;&amp;</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">                produk.getStok() &gt;= 0 &amp;&amp;</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                produk.getStokMinimum() &gt;= 0;</span>
+    }
+    // Validasi kategori
+    public static boolean isValidKategori(Kategori kategori) {
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (kategori == null) {</span>
+<span class="fc" id="L50">            return false;</span>
+        }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        return isValidKodeProduk(kategori.getKode()) &amp;&amp;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                isValidNama(kategori.getNama()) &amp;&amp;</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                (kategori.getDeskripsi() == null ||</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">                        kategori.getDeskripsi().length() &lt;= 500);</span>
+    }
+    // Validasi persentase (0-100)
+    public static boolean isValidPersentase(double persentase) {
+<span class="fc bfc" id="L59" title="All 4 branches covered.">        return persentase &gt;= 0 &amp;&amp; persentase &lt;= 100;</span>
+    }
+    // Validasi kuantitas (positif)
+    public static boolean isValidKuantitas(int kuantitas) {
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        return kuantitas &gt; 0;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
